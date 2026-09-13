@@ -48,3 +48,8 @@ apps/desktop/src-tauri/gen/
 
 # Coverage
 coverage/
+# Bubblewrap/Android build outputs (generated, never committed)
+apps/web/twa/build/
+apps/web/twa/.gradle/
+apps/web/twa/twrp
+apps/web/decompressed/

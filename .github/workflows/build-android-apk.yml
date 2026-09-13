@@ -1,0 +1,102 @@
+name: Build Android APK (TWA)
+
+# Builds ScribSave as a real installable Android app (a Trusted Web Activity
+# wrapping the hosted PWA) and uploads the signed APK/AAB as a build artifact.
+#
+# Run it from Actions → "Build Android APK (TWA)" → "Run workflow",
+# or push a tag like `android-v1` to also attach the APK to a GitHub Release.
+#
+# NOTE: this keystore (`apps/web/twa/android.keystore`) is a throwaway
+# DEV signing key for sideloading — never use it for the Play Store.
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "android-v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web/twa
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Bubblewrap CLI
+        run: npm install -g @bubblewrap/cli@1.24.1
+
+      - name: Pre-configure Bubblewrap (skip JDK/SDK prompts)
+        shell: bash
+        run: |
+          mkdir -p "$HOME/.bubblewrap"
+          printf '{"jdkPath":"%s","androidSdkPath":"%s"}\n' "$JAVA_HOME" "$ANDROID_HOME" \
+            > "$HOME/.bubblewrap/config.json"
+          cat "$HOME/.bubblewrap/config.json"
+
+      - name: Accept Android SDK licenses
+        shell: bash
+        run: |
+          for LICFILE in "$ANDROID_HOME"/licenses/android-sdk-license \
+                          "$ANDROID_HOME"/licenses/android-sdk-preview-license; do
+            if [ -f "$LICFILE" ]; then continue; fi
+            mkdir -p "$(dirname "$LICFILE")"
+            case "$LICFILE" in
+              *preview*) echo "84831b9409646a918e30573bab4c9c91346d8abd" > "$LICFILE" ;;
+              *)
+                printf '8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e\n24333f8a63b6825ea9c5514f83c2829b004d1fee\n' > "$LICFILE"
+                ;;
+            esac
+          done
+
+      - name: Generate Android project from twa-manifest.json
+        run: |
+          yes "" | bubblewrap update --skipVersionUpgrade
+
+      - name: Build signed APK + AAB
+        env:
+          BUBBLEWRAP_KEYSTORE_PASSWORD: scribsave
+          BUBBLEWRAP_KEY_PASSWORD: scribsave
+        run: |
+          bubblewrap build --skipPwaValidation
+
+      - name: Upload APK + AAB artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: scribsave-android-twa
+          path: |
+            apps/web/twa/app-release-signed.apk
+            apps/web/twa/app-release-bundle.aab
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Attach to GitHub Release (tag pushes)
+        if: startsWith(github.ref, 'refs/tags/android-v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          gh release create "$TAG" \
+            --title "ScribSave Android ${TAG}" \
+            --notes "Android TWA (sideload). Download the APK and install it." 2>/dev/null || true
+          gh release upload "$TAG" app-release-signed.apk app-release-bundle.aab --clobber

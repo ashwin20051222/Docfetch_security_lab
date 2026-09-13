@@ -1,0 +1,24 @@
+{
+  "packageId": "com.scribsave.downloader",
+  "host": "ashwin20051222.github.io",
+  "name": "ScribSave Downloader",
+  "launcherName": "ScribSave",
+  "display": "standalone",
+  "orientation": "default",
+  "themeColor": "#ffffff",
+  "backgroundColor": "#ffffff",
+  "startUrl": "/Docfetch_security_lab/",
+  "iconUrl": "https://ashwin20051222.github.io/Docfetch_security_lab/icons/icon-512.png",
+  "maskableIconUrl": "https://ashwin20051222.github.io/Docfetch_security_lab/icons/icon-512.png",
+  "webManifestUrl": "https://ashwin20051222.github.io/Docfetch_security_lab/manifest.webmanifest",
+  "signingKey": {
+    "path": "android.keystore",
+    "alias": "scribsave"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "fallbackType": "customtabs",
+  "features": {},
+  "enableNotifications": false,
+  "enableSiteSettingsShortcut": true
+}
