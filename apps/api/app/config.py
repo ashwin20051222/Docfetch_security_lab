@@ -48,6 +48,20 @@ class Settings(BaseSettings):
     lab_test_timeout_seconds: float = Field(default=20.0, alias="LAB_TEST_TIMEOUT_SECONDS")
     lab_admin_token: str = Field(default="", alias="LAB_ADMIN_TOKEN")
 
+    # Scribd downloader (headless Chromium)
+    scribd_chrome_channel: str = Field(default="chrome", alias="SCRIBD_CHROME_CHANNEL")
+    scribd_chrome_executable: str = Field(default="", alias="SCRIBD_CHROME_EXECUTABLE")
+    scribd_headless: bool = Field(default=True, alias="SCRIBD_HEADLESS")
+    scribd_user_agent: str = Field(
+        default=(
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+        ),
+        alias="SCRIBD_USER_AGENT",
+    )
+    scribd_download_timeout: int = Field(default=300, alias="SCRIBD_DOWNLOAD_TIMEOUT")
+    scribd_item_ttl_minutes: int = Field(default=60, alias="SCRIBD_ITEM_TTL_MINUTES")
+
     # Observable URLs for the health page
     deployed_web_url: str = Field(default="", alias="DEPLOYED_WEB_URL")
 
@@ -76,6 +90,12 @@ class Settings(BaseSettings):
     @property
     def reports_dir(self) -> Path:
         p = self.data_root / "reports"
+        p.mkdir(parents=True, exist_ok=True)
+        return p
+
+    @property
+    def scribd_dir(self) -> Path:
+        p = self.data_root / "scribd"
         p.mkdir(parents=True, exist_ok=True)
         return p
 

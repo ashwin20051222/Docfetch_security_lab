@@ -3,20 +3,21 @@ import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
+  base: "./",
   plugins: [
     react(),
     VitePWA({
       registerType: "autoUpdate",
       includeAssets: ["favicon.svg"],
       manifest: {
-        name: "DocFetch Security Lab",
-        short_name: "DocFetch",
+        name: "ScribSave Downloader",
+        short_name: "ScribSave",
         description:
-          "Document retrieval and authorized security testing lab. No fake data: every finding comes from observed server behavior.",
-        theme_color: "#f8f9ff",
-        background_color: "#f8f9ff",
+          "Download Scribd documents, books, and presentations as PDF files.",
+        theme_color: "#ffffff",
+        background_color: "#ffffff",
         display: "standalone",
-        start_url: "/",
+        start_url: "./",
         icons: [
           {
             src: "/icons/icon-192.png",

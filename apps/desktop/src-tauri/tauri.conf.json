@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "DocFetch Security Lab",
+  "productName": "ScribSave",
   "version": "0.1.0",
-  "identifier": "com.docfetch.securitylab",
+  "identifier": "com.scribsave.desktop",
   "build": {
     "beforeDevCommand": "npm run dev --workspace apps/web",
     "devUrl": "http://localhost:5173",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "DocFetch Security Lab",
+        "title": "ScribSave",
         "width": 1440,
         "height": 900,
         "minWidth": 1024,
@@ -26,7 +26,7 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "targets": ["appimage", "pacman"],
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",

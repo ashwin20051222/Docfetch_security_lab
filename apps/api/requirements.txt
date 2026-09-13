@@ -9,3 +9,6 @@ python-multipart>=0.0.9
 alembic>=1.13.0
 psycopg[binary]>=3.2.0
 orjson>=3.10.0
+playwright>=1.48.0
+python-pptx>=1.0.0
+Pillow>=10.4.0

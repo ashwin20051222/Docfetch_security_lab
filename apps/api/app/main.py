@@ -133,3 +133,7 @@ def seed_default_lab_targets() -> None:
 
 include_all()
 app.include_router(api)
+
+from app.api.scribd import router as scribd_router  # noqa: E402
+
+app.include_router(scribd_router)
