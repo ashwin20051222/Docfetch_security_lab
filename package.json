@@ -1,0 +1,37 @@
+{
+  "name": "docfetch-security-lab",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DocFetch Security Lab — production-grade document retrieval and authorized security testing lab",
+  "workspaces": [
+    "packages/types",
+    "packages/core",
+    "packages/ui",
+    "packages/document-engine",
+    "apps/web",
+    "apps/desktop"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace apps/web",
+    "dev:api": "cd apps/api && uvicorn app.main:app --reload --port 8000",
+    "build": "npm run build --workspace apps/web",
+    "build:api": "cd apps/api && python -m compileall app",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "test:api": "cd apps/api && python -m pytest -q",
+    "test:web": "npm run test --workspace apps/web",
+    "test:integration": "bash tests/integration/run.sh",
+    "db:migrate": "cd apps/api && alembic upgrade head",
+    "db:create-migration": "cd apps/api && alembic revision --autogenerate -m",
+    "lab:up": "bash scripts/run_lab_targets.sh",
+    "lab:down": "bash scripts/stop_lab_targets.sh",
+    "desktop:dev": "npm run tauri dev --workspace apps/desktop",
+    "desktop:build": "npm run tauri build --workspace apps/desktop",
+    "format": "prettier --write \"apps/web/src/**/*.{ts,tsx,css}\" \"packages/*/src/**/*.{ts,tsx}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
+  }
+}

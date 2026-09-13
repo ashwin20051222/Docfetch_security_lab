@@ -1,0 +1,34 @@
+# Maintainer: DocFetch Security Lab
+# Arch Linux package for the DocFetch Security Lab desktop shell.
+# The desktop shell wraps the built web app (Vite SPA) in a Tauri 2 window
+# that talks to the backend API running locally on 127.0.0.1:8000.
+
+pkgname=docfetch-security-lab
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Document retrieval and authorized security testing lab desktop shell (Verdant Cipher UI)"
+arch=('x86_64')
+url="https://github.com/anomalyco/docfetch-security-lab"
+license=('MIT')
+depends=('webkit2gtk-4.1' 'gtk3' 'libsoup3' 'bash')
+makedepends=('cargo' 'rust' 'nodejs' 'npm' 'python')
+source=("$pkgname-$pkgver.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cd "$srcdir"
+  npm ci
+  npm run build --workspace @docfetch/web
+  cargo build --release --manifest-path apps/desktop/src-tauri/Cargo.toml
+}
+
+package() {
+  cd "$srcdir"
+  install -Dm755 apps/desktop/src-tauri/target/release/docfetch \
+    "$pkgdir/usr/bin/docfetch-security-lab"
+  install -Dm644 packaging/docfetch-security-lab.desktop \
+    "$pkgdir/usr/share/applications/docfetch-security-lab.desktop"
+  install -Dm644 apps/desktop/src-tauri/icons/icon.png \
+    "$pkgdir/usr/share/icons/hicolor/512x512/apps/docfetch-security-lab.png"
+  install -Dm444 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

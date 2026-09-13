@@ -1,0 +1,191 @@
+{
+  "report_id": "test-target-6-1789234214",
+  "generated_at": "2026-09-12T17:30:14.408243+00:00",
+  "scope": "Authorized security lab review of the named lab target. All testing was performed against infrastructure explicitly registered as an authorized lab target. No external or third-party systems were contacted.",
+  "target": {
+    "id": "e27a1d80-420b-46dd-8519-3941cc0f1f91",
+    "name": "test-target-6",
+    "base_url": "http://127.0.0.1:35935",
+    "environment": "local",
+    "authorization_status": "none"
+  },
+  "tests_executed": [
+    {
+      "id": "22fb9c7c-6a41-40d0-ac58-384019b8e418",
+      "profile": "client-side-access-control",
+      "title": "Client-Side Access Control Inspection",
+      "status": "failed",
+      "started_at": "2026-09-12T17:30:14.380442",
+      "finished_at": "2026-09-12T17:30:14.400246",
+      "request_summary": {
+        "method": "GET",
+        "url": "http://127.0.0.1:35935/labs/page",
+        "requests": 2,
+        "duration_seconds": 0.007
+      },
+      "response_summary": {
+        "authorized_status": 200,
+        "unauthorized_status": 200,
+        "content_exposed": true,
+        "byte_identical": true
+      },
+      "error": null
+    }
+  ],
+  "findings": [
+    {
+      "id": "fe8c612c-9059-4db6-aff6-3a04c9422d22",
+      "severity": "high",
+      "status": "open",
+      "title": "Client-Side Access Control Confirmed",
+      "description": "Protected content is delivered to the browser before any server-side authorization decision. The paywall hides it visually only.",
+      "expected_behavior": "Protected content must not reach the client without authorization.",
+      "observed_behavior": "An unauthenticated response carried protected-content markers in its body and was byte-identical to the authorized response.",
+      "recommendation": "Move access decisions server-side. Return an empty body or 403 to unauthorized clients and strip protected content from the page source.",
+      "evidence": {
+        "profile": "client-side-access-control",
+        "path": "/labs/page",
+        "authorized": {
+          "status": 200,
+          "content_type": "text/html",
+          "content_length": 76,
+          "security_headers": {},
+          "body_sha256": "44de3eca39f25d03518c317ddf44a104b9f74640c89e872867a8a0371c3950c7",
+          "body_preview": "<html><div class='oc-paywall'>DOCFETCH-PROTECTED-CONTENT-MARKER</div></html>"
+        },
+        "unauthorized": {
+          "status": 200,
+          "content_type": "text/html",
+          "content_length": 76,
+          "security_headers": {},
+          "body_sha256": "44de3eca39f25d03518c317ddf44a104b9f74640c89e872867a8a0371c3950c7",
+          "body_preview": "<html><div class='oc-paywall'>DOCFETCH-PROTECTED-CONTENT-MARKER</div></html>"
+        },
+        "blocks": [
+          {
+            "label": "AUTHORIZED LAB IDENTITY",
+            "request": {
+              "method": "GET",
+              "url": "http://127.0.0.1:35935/labs/page",
+              "timestamp": "2026-09-12T17:30:14.394876+00:00",
+              "headers": {
+                "Authorization": "[REDACTED]"
+              },
+              "body_summary": null
+            },
+            "response": {
+              "status": 200,
+              "content_type": "text/html",
+              "content_length": 76,
+              "security_headers": {},
+              "body_sha256": "44de3eca39f25d03518c317ddf44a104b9f74640c89e872867a8a0371c3950c7",
+              "body_preview": "<html><div class='oc-paywall'>DOCFETCH-PROTECTED-CONTENT-MARKER</div></html>"
+            }
+          },
+          {
+            "label": "UNAUTHORIZED",
+            "request": {
+              "method": "GET",
+              "url": "http://127.0.0.1:35935/labs/page",
+              "timestamp": "2026-09-12T17:30:14.394876+00:00",
+              "headers": {
+                "Authorization": "[REDACTED \u2014 none sent]"
+              },
+              "body_summary": null
+            },
+            "response": {
+              "status": 200,
+              "content_type": "text/html",
+              "content_length": 76,
+              "security_headers": {},
+              "body_sha256": "44de3eca39f25d03518c317ddf44a104b9f74640c89e872867a8a0371c3950c7",
+              "body_preview": "<html><div class='oc-paywall'>DOCFETCH-PROTECTED-CONTENT-MARKER</div></html>"
+            }
+          }
+        ],
+        "content_exposed": true,
+        "byte_identical": true
+      },
+      "created_at": "2026-09-12T17:30:14.397983"
+    }
+  ],
+  "evidence": [
+    {
+      "test_id": "22fb9c7c-6a41-40d0-ac58-384019b8e418",
+      "profile": "client-side-access-control",
+      "evidence": {
+        "profile": "client-side-access-control",
+        "path": "/labs/page",
+        "authorized": {
+          "status": 200,
+          "content_type": "text/html",
+          "content_length": 76,
+          "security_headers": {},
+          "body_sha256": "44de3eca39f25d03518c317ddf44a104b9f74640c89e872867a8a0371c3950c7",
+          "body_preview": "<html><div class='oc-paywall'>DOCFETCH-PROTECTED-CONTENT-MARKER</div></html>"
+        },
+        "unauthorized": {
+          "status": 200,
+          "content_type": "text/html",
+          "content_length": 76,
+          "security_headers": {},
+          "body_sha256": "44de3eca39f25d03518c317ddf44a104b9f74640c89e872867a8a0371c3950c7",
+          "body_preview": "<html><div class='oc-paywall'>DOCFETCH-PROTECTED-CONTENT-MARKER</div></html>"
+        },
+        "blocks": [
+          {
+            "label": "AUTHORIZED LAB IDENTITY",
+            "request": {
+              "method": "GET",
+              "url": "http://127.0.0.1:35935/labs/page",
+              "timestamp": "2026-09-12T17:30:14.394876+00:00",
+              "headers": {
+                "Authorization": "[REDACTED]"
+              },
+              "body_summary": null
+            },
+            "response": {
+              "status": 200,
+              "content_type": "text/html",
+              "content_length": 76,
+              "security_headers": {},
+              "body_sha256": "44de3eca39f25d03518c317ddf44a104b9f74640c89e872867a8a0371c3950c7",
+              "body_preview": "<html><div class='oc-paywall'>DOCFETCH-PROTECTED-CONTENT-MARKER</div></html>"
+            }
+          },
+          {
+            "label": "UNAUTHORIZED",
+            "request": {
+              "method": "GET",
+              "url": "http://127.0.0.1:35935/labs/page",
+              "timestamp": "2026-09-12T17:30:14.394876+00:00",
+              "headers": {
+                "Authorization": "[REDACTED \u2014 none sent]"
+              },
+              "body_summary": null
+            },
+            "response": {
+              "status": 200,
+              "content_type": "text/html",
+              "content_length": 76,
+              "security_headers": {},
+              "body_sha256": "44de3eca39f25d03518c317ddf44a104b9f74640c89e872867a8a0371c3950c7",
+              "body_preview": "<html><div class='oc-paywall'>DOCFETCH-PROTECTED-CONTENT-MARKER</div></html>"
+            }
+          }
+        ],
+        "content_exposed": true,
+        "byte_identical": true
+      }
+    }
+  ],
+  "risk": "Risk is limited to the registered lab target and derived entirely from observed response behavior captured during this review.",
+  "remediation": [
+    "Move access decisions server-side. Return an empty body or 403 to unauthorized clients and strip protected content from the page source."
+  ],
+  "limitations": [
+    "Tests execute against authorized lab targets only.",
+    "Findings reflect observed HTTP responses and do not constitute an exhaustive audit.",
+    "No persistence of credentials, tokens, cookies, or document contents occurs."
+  ]
+}

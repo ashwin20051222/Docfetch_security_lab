@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Builds
+dist/
+build/
+*.tsbuildinfo
+apps/desktop/src-tauri/target/
+
+# Backend
+apps/api/__pycache__/
+**/__pycache__/
+*.py[cod]
+.venv/
+apps/api/.venv/
+apps/api/data/
+*.egg-info/
+.pytest_cache/
+apps/api/.pytest_cache/
+
+# Env / secrets
+.env
+.env.local
+.env.development
+.env.test
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log
+logs/
+apps/api/audit/
+
+# Lab runtime
+lab-target/.runtime/
+*.pid
+
+# Integration test state
+apps/api/integration-data/
+
+# Tauri
+apps/desktop/src-tauri/gen/
+
+# Coverage
+coverage/

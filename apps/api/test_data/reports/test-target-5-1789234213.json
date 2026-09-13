@@ -1,0 +1,113 @@
+{
+  "report_id": "test-target-5-1789234213",
+  "generated_at": "2026-09-12T17:30:13.876985+00:00",
+  "scope": "Authorized security lab review of the named lab target. All testing was performed against infrastructure explicitly registered as an authorized lab target. No external or third-party systems were contacted.",
+  "target": {
+    "id": "1e147299-0bdc-4bdd-ac69-c09a3047d3ea",
+    "name": "test-target-5",
+    "base_url": "http://127.0.0.1:38339",
+    "environment": "local",
+    "authorization_status": "none"
+  },
+  "tests_executed": [
+    {
+      "id": "bdb927ec-e6bf-46f6-be29-66581d2e91ec",
+      "profile": "auth-enforcement",
+      "title": "Authorization Enforcement Consistency",
+      "status": "passed",
+      "started_at": "2026-09-12T17:30:13.858398",
+      "finished_at": "2026-09-12T17:30:13.869933",
+      "request_summary": {
+        "method": "GET",
+        "url": "http://127.0.0.1:38339/document.pdf",
+        "requests": 2,
+        "duration_seconds": 0.006
+      },
+      "response_summary": {
+        "authorized_status": 200,
+        "unauthorized_status": 403,
+        "content_exposed": false,
+        "byte_identical": false
+      },
+      "error": null
+    }
+  ],
+  "findings": [],
+  "evidence": [
+    {
+      "test_id": "bdb927ec-e6bf-46f6-be29-66581d2e91ec",
+      "profile": "auth-enforcement",
+      "evidence": {
+        "profile": "auth-enforcement",
+        "path": "/document.pdf",
+        "authorized": {
+          "status": 200,
+          "content_type": "application/pdf",
+          "content_length": 15,
+          "security_headers": {},
+          "body_sha256": "14bcd090baf31edba64e9cbd8cdfc15f943344aa72cb3675ad8e91bfcbce03ad",
+          "body_preview": "%PDF-1.4\n%%EOF\n"
+        },
+        "unauthorized": {
+          "status": 403,
+          "content_type": null,
+          "content_length": 0,
+          "security_headers": {},
+          "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "body_preview": ""
+        },
+        "blocks": [
+          {
+            "label": "AUTHORIZED LAB IDENTITY",
+            "request": {
+              "method": "GET",
+              "url": "http://127.0.0.1:38339/document.pdf",
+              "timestamp": "2026-09-12T17:30:13.869793+00:00",
+              "headers": {
+                "Authorization": "[REDACTED]"
+              },
+              "body_summary": null
+            },
+            "response": {
+              "status": 200,
+              "content_type": "application/pdf",
+              "content_length": 15,
+              "security_headers": {},
+              "body_sha256": "14bcd090baf31edba64e9cbd8cdfc15f943344aa72cb3675ad8e91bfcbce03ad",
+              "body_preview": "%PDF-1.4\n%%EOF\n"
+            }
+          },
+          {
+            "label": "UNAUTHORIZED",
+            "request": {
+              "method": "GET",
+              "url": "http://127.0.0.1:38339/document.pdf",
+              "timestamp": "2026-09-12T17:30:13.869793+00:00",
+              "headers": {
+                "Authorization": "[REDACTED \u2014 none sent]"
+              },
+              "body_summary": null
+            },
+            "response": {
+              "status": 403,
+              "content_type": null,
+              "content_length": 0,
+              "security_headers": {},
+              "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "body_preview": ""
+            }
+          }
+        ],
+        "content_exposed": false,
+        "byte_identical": false
+      }
+    }
+  ],
+  "risk": "Risk is limited to the registered lab target and derived entirely from observed response behavior captured during this review.",
+  "remediation": [],
+  "limitations": [
+    "Tests execute against authorized lab targets only.",
+    "Findings reflect observed HTTP responses and do not constitute an exhaustive audit.",
+    "No persistence of credentials, tokens, cookies, or document contents occurs."
+  ]
+}

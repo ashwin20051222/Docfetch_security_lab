@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=DocFetch Security Lab
+GenericName=Document Security Lab
+Comment=Document retrieval and authorized security testing lab
+Exec=docfetch-security-lab
+Icon=docfetch-security-lab
+Terminal=false
+Categories=Development;Security;Utility;
+Keywords=docfetch;security;pdf;lab;testing;
+StartupNotify=true

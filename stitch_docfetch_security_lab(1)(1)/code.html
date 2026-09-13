@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "background": "#f8f9ff",
+            "error-container": "#ffdad6",
+            "outline-variant": "#bccac0",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed": "#89f5e7",
+            "secondary": "#565e74",
+            "secondary-fixed": "#dae2fd",
+            "primary-container": "#00855d",
+            "surface": "#f8f9ff",
+            "on-primary-fixed-variant": "#005137",
+            "tertiary": "#00685f",
+            "on-tertiary-fixed": "#00201d",
+            "on-tertiary-container": "#f4fffc",
+            "surface-container-highest": "#d3e4fe",
+            "surface-container-lowest": "#ffffff",
+            "inverse-primary": "#68dba9",
+            "inverse-on-surface": "#eaf1ff",
+            "on-primary-container": "#f5fff7",
+            "surface-dim": "#cbdbf5",
+            "secondary-fixed-dim": "#bec6e0",
+            "tertiary-container": "#008378",
+            "on-error": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "inverse-surface": "#213145",
+            "primary": "#006948",
+            "on-tertiary-fixed-variant": "#005049",
+            "on-secondary-container": "#5c647a",
+            "surface-tint": "#006c4a",
+            "on-secondary-fixed-variant": "#3f465c",
+            "on-tertiary": "#ffffff",
+            "error": "#ba1a1a",
+            "surface-container-high": "#dce9ff",
+            "surface-variant": "#d3e4fe",
+            "on-primary": "#ffffff",
+            "secondary-container": "#dae2fd",
+            "tertiary-fixed-dim": "#6bd8cb",
+            "on-background": "#0b1c30",
+            "on-surface": "#0b1c30",
+            "surface-container-low": "#eff4ff",
+            "primary-fixed": "#85f8c4",
+            "surface-container": "#e5eeff",
+            "on-secondary-fixed": "#131b2e",
+            "primary-fixed-dim": "#68dba9",
+            "on-surface-variant": "#3d4a42",
+            "on-error-container": "#93000a",
+            "outline": "#6d7a72",
+            "on-primary-fixed": "#002114"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "space-md": "0.75rem",
+            "space-xs": "0.25rem",
+            "margin": "1rem",
+            "margin-tablet": "1.5rem",
+            "gutter": "1rem",
+            "margin-desktop": "2rem",
+            "gutter-desktop": "1.5rem",
+            "space-lg": "1.25rem",
+            "space-xl": "2rem"
+          },
+          "fontFamily": {
+            "body-sm": [ "Inter" ],
+            "headline-sm": [ "Space Grotesk" ],
+            "headline-lg": [ "Space Grotesk" ],
+            "code-body": [ "JetBrains Mono" ],
+            "headline-md": [ "Space Grotesk" ],
+            "body-lg": [ "Inter" ],
+            "label-sm": [ "JetBrains Mono" ],
+            "label-md": [ "Inter" ],
+            "headline-xl-mobile": [ "Space Grotesk" ],
+            "body-md": [ "Inter" ],
+            "headline-xl": [ "Space Grotesk" ]
+          },
+          "fontSize": {
+            "body-sm": [ "13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" } ],
+            "headline-sm": [ "16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" } ],
+            "headline-lg": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" } ],
+            "code-body": [ "13px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" } ],
+            "headline-md": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ],
+            "body-lg": [ "16px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "400" } ],
+            "label-sm": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" } ],
+            "label-md": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" } ],
+            "headline-xl-mobile": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" } ],
+            "body-md": [ "14px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" } ],
+            "headline-xl": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" } ]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body-md text-on-surface antialiased">
+<!-- Clean, Uncluttered Top Navbar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest border-b border-surface-container/60 shadow-sm">
+<div class="h-16 max-w-7xl mx-auto px-margin-desktop flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-2">
+<img alt="DocFetch Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWcmsNPdwCc7GMduDvEBeUTSC4aeI1SbX7LRo0PsUVCDW8dWWGNo_0W7ESuPk9w3MeOE-TCq-Z-F-509GUFjouQJnwZKIh5XdaRfkDfUdowyMs9DbqmyfD7lsfeuyg4-iUZQcIjfyEnjc8hDuKo9ZUyGXOvNh6i2W2X4YUJmCUuSxDJLNTVX-injd_63A8iPWZDWdmVtetu9hsxem7zoceegt58R2inKDnxYacRUMIuaYVGWW-Nr73ag"/>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">DocFetch</span>
+</div>
+</div>
+<!-- Clean Primary Nav Tabs -->
+<nav class="hidden md:flex items-center gap-1 p-1 bg-surface-container-low rounded-xl">
+<a aria-current="page" class="px-space-md py-1.5 rounded-lg bg-primary-container text-on-primary-container font-semibold text-body-sm shadow-sm transition-all" href="#">Dashboard</a>
+<a class="px-space-md py-1.5 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">Retrieve</a>
+<a class="px-space-md py-1.5 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">Security Lab</a>
+<a class="px-space-md py-1.5 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">Targets</a>
+<a class="px-space-md py-1.5 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">Findings</a>
+<a class="px-space-md py-1.5 rounded-lg font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">Settings</a>
+</nav>
+<!-- Profile Avatar & Notifications -->
+<div class="flex items-center gap-space-sm">
+<button aria-label="Notifications" class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary-container/20 cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNDBhvMoCj_-gfaRC-ayiIlbnuES6jQCV1PE5fMf7vru1U20O43b2so-WR54po9ss1SdNgBbKlIaQ1_frfLw3HpyrcgOcmdAziQP_5jdVXHo3AZnmrcol_pDT-25W4NMZgITaelXruzujg8FsvNAo9WOJOjF7gl_YkcWzlrlhNZqkiZTB0taFnxOZZul0OP4UJdVtwATaIv5gX9Y18k5EZTl0iS7Lz1z1Z5ee1yLZixCY0Km8yIx3_Xw"/>
+</div>
+</div>
+</header>
+<!-- Main Action-First Hub Content -->
+<main class="w-full pt-16 min-h-screen bg-background">
+<div class="max-w-7xl mx-auto w-full px-margin-desktop py-space-xl space-y-space-xl">
+<!-- Streamlined Hero Quick Actions (Dual Side-by-Side Cards) -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-gutter-desktop">
+<!-- Action Card 1: Retrieve Public Document -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-surface-container/80 flex flex-col justify-between">
+<div class="space-y-space-md">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">search</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Retrieve Public Document</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Fetch open-access papers by DOI, arXiv ID, or repository URL.</p>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-2 pt-2">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3.5 top-2.5 text-secondary text-[18px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-xl bg-surface-container-low text-on-surface text-body-sm outline-none border border-transparent focus:border-primary/30 focus:bg-surface-container-lowest transition-all" placeholder="Enter DOI (e.g. 10.1145/...) or arXiv URL..." type="text"/>
+</div>
+<button class="px-5 py-2 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-body-sm flex items-center justify-center gap-1.5 transition-colors shadow-sm shrink-0" type="button">
+<span>Fetch</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container-low flex items-center justify-between text-label-sm font-label-sm text-secondary">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">check_circle</span>
+              Open Access &amp; Public Metadata Only
+            </span>
+<span class="text-on-surface-variant font-medium">Ready</span>
+</div>
+</div>
+<!-- Action Card 2: Security Test Runner -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-surface-container/80 flex flex-col justify-between">
+<div class="space-y-space-md">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">security</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Security Test Runner</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Run verification probes against local authorized targets.</p>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-2 pt-2">
+<div class="relative flex-1">
+<select class="w-full pl-3.5 pr-8 py-2 rounded-xl bg-surface-container-low text-on-surface text-body-sm outline-none border border-transparent focus:border-primary/30 focus:bg-surface-container-lowest transition-all appearance-none cursor-pointer">
+<option value="alpha">Target 01: Lab Alpha (Port :8080)</option>
+<option value="beta">Target 02: Lab Beta (Port :8080/beta)</option>
+<option value="gamma">Target 03: Lab Gamma (Port :8080/gamma)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-secondary text-[18px] pointer-events-none">expand_more</span>
+</div>
+<button class="px-5 py-2 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-body-sm flex items-center justify-center gap-1.5 transition-colors shadow-sm shrink-0" type="button">
+<span>Run Test</span>
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container-low flex items-center justify-between text-label-sm font-label-sm text-secondary">
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+              Isolated Local Environment
+            </span>
+<span class="text-on-surface-variant font-medium">3 Suites Configured</span>
+</div>
+</div>
+</section>
+<!-- Key Metrics: 4 Clean, Focused Metrics -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-gutter-desktop">
+<!-- Metric 1 -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-surface-container/60">
+<div class="flex items-center justify-between text-secondary">
+<span class="font-body-sm text-body-sm">Verified Documents</span>
+<span class="material-symbols-outlined text-[20px] text-primary">library_books</span>
+</div>
+<div class="mt-3">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">142</span>
+</div>
+<div class="mt-1 text-label-sm font-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">check</span> Open access verified
+          </div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-surface-container/60">
+<div class="flex items-center justify-between text-secondary">
+<span class="font-body-sm text-body-sm">Probes Executed</span>
+<span class="material-symbols-outlined text-[20px] text-tertiary">science</span>
+</div>
+<div class="mt-3">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">384</span>
+</div>
+<div class="mt-1 text-label-sm font-label-sm text-secondary">
+            Across 3 lab targets
+          </div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-surface-container/60">
+<div class="flex items-center justify-between text-secondary">
+<span class="font-body-sm text-body-sm">Active Lab Target</span>
+<span class="material-symbols-outlined text-[20px] text-primary">lan</span>
+</div>
+<div class="mt-3">
+<span class="font-headline-lg text-headline-lg text-on-surface font-bold font-code-body">:8080/demo</span>
+</div>
+<div class="mt-1 text-label-sm font-label-sm text-primary font-medium flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Online &amp; Isolated
+          </div>
+</div>
+<!-- Metric 4 -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-surface-container/60">
+<div class="flex items-center justify-between text-secondary">
+<span class="font-body-sm text-body-sm">Flagged Vulnerabilities</span>
+<span class="material-symbols-outlined text-[20px] text-error">flag</span>
+</div>
+<div class="mt-3">
+<span class="font-headline-xl text-headline-xl text-error font-bold">19</span>
+</div>
+<div class="mt-1 text-label-sm font-label-sm text-error font-medium">
+            3 require attention
+          </div>
+</div>
+</section>
+<!-- Streamlined Content: 2-Column Layout -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop">
+<!-- Left Column: Recent Retrieved Documents (7 cols) -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-surface-container/80 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-md">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Recent Retrieved Documents</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Validated publications from open-access scientific indexes.</p>
+</div>
+<a class="font-headline-sm text-body-sm text-primary hover:underline flex items-center gap-1" href="#">
+<span>View all</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="border-b border-surface-container text-secondary text-label-sm font-label-sm uppercase tracking-wider">
+<th class="py-2.5 px-3">Title</th>
+<th class="py-2.5 px-3">Source &amp; Date</th>
+<th class="py-2.5 px-3">Status</th>
+<th class="py-2.5 px-3 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container/60">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-3 font-headline-sm text-body-sm text-on-surface max-w-xs truncate">
+                      Cryptographic Primitives in Post-Quantum Signatures
+                    </td>
+<td class="py-3.5 px-3 text-secondary text-body-sm">
+                      arXiv • 12m ago
+                    </td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-primary-container/15 text-primary font-medium">
+                        Verified
+                      </span>
+</td>
+<td class="py-3.5 px-3 text-right">
+<button class="font-headline-sm text-body-sm text-primary hover:underline" type="button">View</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-3 font-headline-sm text-body-sm text-on-surface max-w-xs truncate">
+                      Formal Verification of Microkernel IPC Endpoints
+                    </td>
+<td class="py-3.5 px-3 text-secondary text-body-sm">
+                      PubMed • 48m ago
+                    </td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-primary-container/15 text-primary font-medium">
+                        Verified
+                      </span>
+</td>
+<td class="py-3.5 px-3 text-right">
+<button class="font-headline-sm text-body-sm text-primary hover:underline" type="button">View</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-3 font-headline-sm text-body-sm text-on-surface max-w-xs truncate">
+                      Empirical Measurement of TLS Session Resumption
+                    </td>
+<td class="py-3.5 px-3 text-secondary text-body-sm">
+                      DOAJ • 2h ago
+                    </td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-primary-container/15 text-primary font-medium">
+                        Verified
+                      </span>
+</td>
+<td class="py-3.5 px-3 text-right">
+<button class="font-headline-sm text-body-sm text-primary hover:underline" type="button">View</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3.5 px-3 font-headline-sm text-body-sm text-on-surface max-w-xs truncate">
+                      Automated Synthesis of Access Control Policies
+                    </td>
+<td class="py-3.5 px-3 text-secondary text-body-sm">
+                      IEEE OA • 5h ago
+                    </td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-primary-container/15 text-primary font-medium">
+                        Verified
+                      </span>
+</td>
+<td class="py-3.5 px-3 text-right">
+<button class="font-headline-sm text-body-sm text-primary hover:underline" type="button">View</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column: Active Security Findings (5 cols) -->
+<div class="lg:col-span-5 bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-surface-container/80 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-md">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Active Security Findings</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Issues identified across tested targets.</p>
+</div>
+<span class="px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-error-container text-on-error-container font-semibold">
+                3 New
+              </span>
+</div>
+<div class="space-y-space-sm">
+<!-- Finding 1: Critical -->
+<div class="p-space-sm rounded-xl bg-surface-container-low border border-surface-container flex items-start gap-space-sm">
+<span class="px-2 py-0.5 rounded-md text-label-sm font-label-sm bg-error-container text-on-error-container font-semibold shrink-0 mt-0.5">
+                  CRITICAL
+                </span>
+<div class="min-w-0 flex-1">
+<div class="flex items-center justify-between gap-2">
+<span class="font-headline-sm text-body-sm text-on-surface truncate">Unauthenticated Blob Exposure</span>
+<a class="font-headline-sm text-body-sm text-primary hover:underline shrink-0" href="#">Fix</a>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                    Storage endpoint allowed unauthenticated object downloads on Lab Beta.
+                  </p>
+</div>
+</div>
+<!-- Finding 2: High -->
+<div class="p-space-sm rounded-xl bg-surface-container-low border border-surface-container flex items-start gap-space-sm">
+<span class="px-2 py-0.5 rounded-md text-label-sm font-label-sm bg-secondary-container text-on-secondary-container font-semibold shrink-0 mt-0.5">
+                  HIGH
+                </span>
+<div class="min-w-0 flex-1">
+<div class="flex items-center justify-between gap-2">
+<span class="font-headline-sm text-body-sm text-on-surface truncate">CSS Backdrop Data Leak</span>
+<a class="font-headline-sm text-body-sm text-primary hover:underline shrink-0" href="#">Fix</a>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                    Full document plaintext remains embedded in DOM beneath visual modal.
+                  </p>
+</div>
+</div>
+<!-- Finding 3: Medium -->
+<div class="p-space-sm rounded-xl bg-surface-container-low border border-surface-container flex items-start gap-space-sm">
+<span class="px-2 py-0.5 rounded-md text-label-sm font-label-sm bg-surface-container text-secondary font-semibold shrink-0 mt-0.5">
+                  MEDIUM
+                </span>
+<div class="min-w-0 flex-1">
+<div class="flex items-center justify-between gap-2">
+<span class="font-headline-sm text-body-sm text-on-surface truncate">Missing Rate Limiting Header</span>
+<a class="font-headline-sm text-body-sm text-primary hover:underline shrink-0" href="#">Fix</a>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                    Target endpoints do not throttle high-frequency automated requests.
+                  </p>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs">
+<button class="w-full py-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-headline-sm text-body-sm transition-colors text-center flex items-center justify-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary">download</span>
+<span>Export Report (.JSON / .SARIF)</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Clean Minimal Footer -->
+<footer class="w-full bg-surface-container-lowest border-t border-surface-container/60 py-6">
+<div class="max-w-7xl mx-auto px-margin-desktop flex flex-col sm:flex-row items-center justify-between gap-3 text-secondary font-body-sm text-body-sm">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-body-sm text-on-surface">DocFetch</span>
+<span>— Minimal Action-First Security Hub</span>
+</div>
+<div class="flex items-center gap-4 text-label-sm font-label-sm">
+<a class="hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="hover:text-primary transition-colors" href="#">Lab Policy</a>
+<a class="hover:text-primary transition-colors" href="#">API Status</a>
+</div>
+</div>
+</footer>
+</body></html>
