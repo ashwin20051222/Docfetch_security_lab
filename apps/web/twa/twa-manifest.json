@@ -17,6 +17,7 @@
   },
   "appVersionName": "1.0.0",
   "appVersionCode": 1,
+  "splashScreenFadeOutDuration": 300,
   "fallbackType": "customtabs",
   "features": {},
   "enableNotifications": false,
