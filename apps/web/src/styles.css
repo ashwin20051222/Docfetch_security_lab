@@ -258,6 +258,36 @@ footer {
   color: white;
 }
 
+.install-tip {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%);
+  width: min(92vw, 420px);
+  background: #111827;
+  color: #f9fafb;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  z-index: 1000;
+  animation: fadeIn 0.25s ease-out;
+  cursor: pointer;
+}
+
+.install-tip strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.install-tip span {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: #d1d5db;
+}
+
 /* Spinner */
 .spinner {
   display: inline-block;

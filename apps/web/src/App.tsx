@@ -35,6 +35,10 @@ const isStandalone =
 // set VITE_API_BASE to a hosted API when deploying the static build elsewhere.
 const API_BASE = (import.meta.env.VITE_API_BASE as string | undefined)?.replace(/\/+$/, '') ?? '';
 
+const isIOS =
+  /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
 function formatBytes(bytes: number): string {
   if (!bytes) return '';
   if (bytes < 1024) return `${bytes} B`;
@@ -61,6 +65,8 @@ export function App() {
   const pollTimer = useRef<number | null>(null);
   const [installPrompt, setInstallPrompt] = useState<any>(null);
   const [isInstalled, setIsInstalled] = useState<boolean>(isStandalone);
+  const [installTip, setInstallTip] = useState(false);
+  const installTipTimer = useRef<number | null>(null);
 
   useEffect(() => {
     const onBeforeInstall = (e: Event) => {
@@ -70,29 +76,33 @@ export function App() {
     const onInstalled = () => {
       setIsInstalled(true);
       setInstallPrompt(null);
+      setInstallTip(false);
     };
     window.addEventListener('beforeinstallprompt', onBeforeInstall);
     window.addEventListener('appinstalled', onInstalled);
     return () => {
+      window.clearTimeout(installTipTimer.current ?? undefined);
       window.removeEventListener('beforeinstallprompt', onBeforeInstall);
       window.removeEventListener('appinstalled', onInstalled);
     };
   }, []);
 
   const handleInstall = async () => {
-    if (!installPrompt) {
-      if ((window.navigator as any).standalone) {
-        setIsInstalled(true);
+    if (installPrompt) {
+      (installPrompt as any).prompt();
+      try {
+        const choice: any = await (installPrompt as any).userChoice;
+        if (choice?.outcome === 'accepted') setIsInstalled(true);
+      } finally {
+        setInstallPrompt(null);
       }
       return;
     }
-    (installPrompt as any).prompt();
-    try {
-      const choice: any = await (installPrompt as any).userChoice;
-      if (choice?.outcome === 'accepted') setIsInstalled(true);
-    } finally {
-      setInstallPrompt(null);
-    }
+    // No browser install prompt available (iOS Safari, or Chrome has no
+    // deferred event yet) — guide the user to the native install action.
+    setInstallTip(true);
+    window.clearTimeout(installTipTimer.current ?? undefined);
+    installTipTimer.current = window.setTimeout(() => setInstallTip(false), 8000);
   };
 
   const clearTimer = () => {
@@ -228,6 +238,25 @@ export function App() {
           </nav>
         </div>
       </header>
+
+      {installTip && (
+        <div className="install-tip" onClick={() => setInstallTip(false)}>
+          {isIOS ? (
+            <>
+              <strong>Install ScribSave</strong>
+              <span>Tap the Share button and then “Add to Home Screen”.</span>
+            </>
+          ) : (
+            <>
+              <strong>Install ScribSave</strong>
+              <span>
+                Tap the browser menu (⋮) and choose “Install app” / “Add to Home
+                screen”. It may take a couple of visits before this option appears.
+              </span>
+            </>
+          )}
+        </div>
+      )}
 
       <div className="container">
         <div className="top-title">
